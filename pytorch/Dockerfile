@@ -11,8 +11,10 @@ RUN apt-get update && apt-get install -y \
     bzip2 \
     libx11-6 \
     wget \
-    python3-opencv \
     firefox \
+    vim \
+    htop \
+    python3-opencv \
     xfce4 \
     xfce4-goodies \
     tightvncserver \
@@ -28,10 +30,6 @@ ENV HOME=/home/bmcv
 RUN chmod 777 /home/bmcv
 WORKDIR /home/bmcv
 
-# Copying Over VNCserver Files
-COPY ./xstartup ./xstartup
-COPY ./vncstartup.sh ./vncstartup.sh
-
 # Install Miniconda and Python 3.8
 ENV PATH="/home/bmcv/miniconda3/bin:${PATH}"
 ARG PATH="/home/bmcv/miniconda3/bin:${PATH}"
@@ -40,13 +38,25 @@ RUN wget \
     && mkdir /home/bmcv/.conda \
     && bash Miniconda3-latest-Linux-x86_64.sh -b \
     && rm -f Miniconda3-latest-Linux-x86_64.sh
-RUN conda install -y python=3.8 anaconda
+RUN conda install -y python=3.8
 RUN conda clean -ya
 
 # CUDA 11.1-specific steps
 RUN conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
-# Other Important Packages
+# Extra Python Packages
 RUN pip install opencv-python
+RUN conda install -y -c conda-forge jupyterlab
+RUN pip install matplotlib
+RUN pip install imageio
+RUN pip install pandas
+RUN pip install scikit-learn
+RUN pip install scikit-image
+RUN pip install scipy
+
+
+# VNC Desktop
+COPY --chown=bmcv ./xstartup ./xstartup
+COPY --chown=bmcv ./vncstartup.sh ./vncstartup.sh
 
 CMD ["bash"]

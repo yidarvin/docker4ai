@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-sudo vncserver
-sudo vncserver -kill :1
-mv xstartup /root/.vnc/xstartup
+USER=bmcv vncserver
+USER=bmcv vncserver -kill :1
+mv ./xstartup /home/bmcv/.vnc/xstartup
 chmod +x ~/.vnc/xstartup
-sudo vncserver :1 -geometry 1600x900 -depth 24
+USER=bmcv vncserver :1 -geometry 1600x900 -depth 24
