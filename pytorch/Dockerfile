@@ -54,6 +54,9 @@ RUN pip install scikit-learn
 RUN pip install scikit-image
 RUN pip install scipy
 
+# PyCharm
+ADD ./pycharm-community-2021.2.3.tar.gz .
+ENV PATH="/home/bmcv/pycharm-community-2021.2.3/bin:${PATH}"
 
 # VNC Desktop
 COPY --chown=bmcv ./xstartup ./xstartup
