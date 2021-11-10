@@ -46,13 +46,15 @@ RUN conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 
 # Extra Python Packages
 RUN pip install opencv-python
-RUN conda install -y -c conda-forge jupyterlab
+#RUN conda install -y -c conda-forge jupyterlab
+RUN pip install jupyterlab
 RUN pip install matplotlib
 RUN pip install imageio
 RUN pip install pandas
 RUN pip install scikit-learn
 RUN pip install scikit-image
 RUN pip install scipy
+RUN pip install ipywidgets widgetsnbextension pandas-profiling
 
 # PyCharm
 ADD ./pycharm-community-2021.2.3.tar.gz .
